@@ -1,5 +1,4 @@
 import stomp
-import json
 
 from event.UserOfflineEvent import UserOfflineEvent
 from event.UserOnlineEvent import UserOnlineEvent
@@ -13,6 +12,10 @@ class StompSender:
             port
     ):
         self.conn = stomp.Connection([(host, port)])
+        self.conn.connect(
+            username=settings.RABBITMQ_USER,
+            passcode=settings.RABBITMQ_PASSWORD
+        )
 
     def send_online_message(self, user_id):
         try:
