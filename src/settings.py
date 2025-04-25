@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     RABBITMQ_USER: str
     RABBITMQ_PASSWORD: str
     PROTO_PORT: str
+    RESEND_EVENT_INTERVAL_SECONDS: float
 
     model_config = SettingsConfigDict(env_file="../.env")
 

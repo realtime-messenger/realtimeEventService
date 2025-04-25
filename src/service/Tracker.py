@@ -1,5 +1,9 @@
 import threading
+import time
+
 from messaging.StompSender import stomp_sender
+from settings import settings
+
 
 class Tracker:
     instance = None
@@ -34,3 +38,17 @@ class Tracker:
                 cls.clients_map.pop(user_id)
                 stomp_sender.send_offline_message(user_id)
         print(cls.clients_map)
+
+    @classmethod
+    def resendOnlineUsers(cls):
+        for userId in cls.clients_map:
+            stomp_sender.send_online_message(userId)
+
+    @classmethod
+    def notify(cls):
+        while True:
+            time.sleep(
+                settings.RESEND_EVENT_INTERVAL_SECONDS
+            )
+            cls.resendOnlineUsers()
+

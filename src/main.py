@@ -1,3 +1,4 @@
+import threading
 from concurrent import futures
 import grpc
 
@@ -20,4 +21,6 @@ def serve():
 
 if __name__ == '__main__':
     Tracker()
+    t1 = threading.Thread(target=Tracker.notify, daemon=True)
+    t1.start()
     serve()
