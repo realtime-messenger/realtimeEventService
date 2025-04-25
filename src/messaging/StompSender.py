@@ -42,5 +42,5 @@ class StompSender:
 
 stomp_sender = StompSender(
     settings.RABBITMQ_HOST,
-    settings.STOMP_PORT,
+    settings.RABBITMQ_PORT,
 )
